@@ -1,7 +1,5 @@
 <div class='forum'>
   <%= render :partial => 'forem/forums/head', :locals => { :forum => @forum } %>
-
-  <%= forem_pages_widget(@topics) %>
   <table class='topics table-striped table' cellspacing='0'>
     <thead>
       <tr>
@@ -19,5 +17,8 @@
       <%= render @topics %>
     </tbody>
   </table>
-  <%= forem_pages_widget(@topics) %>
+  <div class="pagination">
+    <%#= paginate @topics, :remote => true %>
+    <%= link_to_next_page @topics, 'Next Page', :rel => 'external' %>
+  </div>
 </div>

@@ -1,14 +1,42 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>ProperInfiniteScrolling</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Proper Infinite Scrolling</title>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div data-role="page">
+      <div data-role="content">
+        <% if user_signed_in? %>
+          <%= link_to current_user.email, main_app.edit_user_registration_path %>
+          <%= link_to "Sign out", main_app.destroy_user_session_path, :method => :delete %>
+          <% if current_user.forem_admin %>
+            <%= link_to "Administrate", forem.admin_root_url %>
+          <% end %>
+        <% else %>
+          <%= link_to "Sign up", main_app.new_user_registration_path %>
+          <%= link_to "Sign in", main_app.new_user_session_path %>
+        <% end %>
 
-<%= yield %>
+        <!-- -- -->
 
-</body>
+        <%# if user_signed_in? %>
+          <%#= link_to current_user.email, main_app.edit_user_registration_path, rel: :external, :data => { :role => 'button', :inline => 'true' } %>
+          <%#= link_to "Sign out", main_app.destroy_user_session_path, :method => :delete, rel: :external, :data => { :role => 'button', :inline => 'true' } %>
+          <%# if current_user.forem_admin %>
+            <%#= link_to "Administrate", forem.admin_root_url, rel: :external, :data => { :role => 'button', :inline => 'true' } %>
+          <%# end %>
+        <%# else %>
+          <%#= link_to "Sign up", main_app.new_user_registration_path, rel: :external, :data => { :role => 'button', :inline => 'true' } %>
+          <%#= link_to "Sign in", main_app.new_user_session_path, rel: :external, :data => { :role => 'button', :inline => 'true' } %>
+        <%# end %>
+
+        <!-- -- -->
+
+        <%= yield %>
+      </div>
+    </div>
+  </body>
 </html>
