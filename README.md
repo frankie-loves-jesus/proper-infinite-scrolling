@@ -15,13 +15,20 @@ Added [jquery-infinite-scroll-helper](https://github.com/expandtheroom/jquery-in
 
 ```
 $('table.topics').infiniteScrollHelper({
-  loadMore: function(page) {
-    // load some data, parse some data
-  },
+  loadMore: function(page, done) {
+    // use the page argument to find the next page to load. This assumes you have a list of links somewhere on the page for your html pagination
+    // jQuery eq filter is 0 based so we have to minus 1 from page to get the 0 based page to load
+    var url = $('.pagination a').eq(page - 1).attr('href'); // now we have the url to the next page of data
 
-  doneLoading: function() {
-    // return true if you are done doing your thing, false otherwise
-    return false;
+    $.get(url, function(data) {
+        // data will be the raw html from the url you just requested
+        // you can do what you need to with it, perhaps pull out just what you need and insert it into table.topics
+
+        console.log(data);
+
+        // now call the done callback to let the plugin know you are done loading
+        done();
+    });
   }
 });
 ```
@@ -33,19 +40,3 @@ Then I added [Kaminari's](https://github.com/amatsuda/kaminari) `link_to_next_pa
   <%= link_to_next_page @topics, 'Next Page', :rel => 'external' %>
 </div>
 ```
-
-Also found [kaminari-example's Ajax branch](https://github.com/amatsuda/kaminari_example/commit/7110f95cde40089e6341dcea4e0ff3c3ca88b27f), but don't know if that's relevant here. 
-
-### So, onto my question: How to add the necessary loading logic to infiniteScrollHelper's `loadMore`?
-
-## Stuff that didn't work out
-
-- [infinite-scroll](https://github.com/paulirish/infinite-scroll): Too bloated and too focused around PHP. Doesn't work with jQuery Mobile (see below).
-- [jqm.infinitescroll](https://github.com/kpheasey/jqm.infinitescroll): Created for jQuery Mobile due to the shortcomings of the above infinite-scroll:
-
-> While working on a new project that involves jQuery Mobile and required infinite scroll, I hit a road block.  The existing infinite scroll plugins didn’t work nicely with JQM’s AJAX loader. Since pages are loaded into the DOM, the plugins would get confused start loading elements for pages that were visible. So, I created a simple plugin that was built just for JQM.
-> 
-> It’s not nearly as robust as the plugin mentioned above, but it does the job. Just supply an ID for the link to the next page and a description of the elements to grab. The plugin starts loading items before the user hits the bottom, which gives a true feeling of an infinite scroll (as long as the user can receive the data fast enough).
-
-But unfortunately jqm.infinitescroll doesn't have proper callbacks for when something is done loading. The project has also been abandoned.
-
