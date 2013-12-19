@@ -15,8 +15,11 @@ $(document).on('pageshow', '.ui-page', function() {
           // data will be the raw html from the url you just requested
           // you can do what you need to with it, perhaps pull out just what you need and insert it into table.topics
   
-          console.log(data);
-  
+          // console.log(data);
+
+          // find and insert our fresh new content
+          $(data).find('tr.topic').appendTo('table.topics'); 
+ 
           // now call the done callback to let the plugin know you are done loading
           done();
       });
