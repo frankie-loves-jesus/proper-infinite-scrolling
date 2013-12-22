@@ -8,5 +8,6 @@ The best infinite scrolling possible. Uses Ruby on Rails, [Kaminari](https://git
 - Set up database: `rake db:migrate`
 - Import dummy data: `rake db:seed`
 - Start the app: `rails s`
-- Pagination should now be working at <http://localhost:3000/forums/default>
+
+Pagination should now be working at <http://localhost:3000/forums/default>.
 
