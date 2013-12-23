@@ -14,11 +14,22 @@ $(document).on('pageshow', '.ui-page', function() {
       console.log(page);  
 
       $.get(url, function(data) {
+
+          // update pagination link
+          $('.pagination a').remove();
+          $(data).find('.pagination a').appendTo('.pagination');
+
+          // destroy plugin when there's no more links
+          if(!$(data).find('.pagination a').length) {
+            $('table.topics').infiniteScrollHelper('destroy');
+            console.log('outta links'); 
+          }
+
           // data will be the raw html from the url you just requested
           // you can do what you need to with it, perhaps pull out just what you need and insert it into table.topics
   
           //alert(data);
-console.log(data);
+          //console.log(data);
 
           // find and insert our fresh new content
           $(data).find('tr.topic').css('background', 'grey').appendTo('table.topics'); 
