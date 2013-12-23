@@ -4,6 +4,7 @@ The best infinite scrolling possible. Uses Ruby on Rails, [Kaminari](https://git
 
 ## Installation
 
+- Make sure you have Ruby (standalone or via [RVM](http://rvm.io/)) and [RubyGems](http://rubygems.org/) installed
 - Install dependencies: `bundle install`
 - Set up the database: `rake db:migrate`
 - Import dummy data: `rake db:seed`
