@@ -14,8 +14,8 @@ class JoinHtmlOutput
     if headers['Content-Type'] =~ /text\/html/
       response.each do |chunk| 
         [
-          [/[\s\t\r?\n]+/, ' '],
-          # [/[\r\n]+/, ''],
+          # [/[\s\t\r?\n]+/, ' '],
+          [/[\r\n]+/, ''],
           [/>\s+/, '>'],
           [/>\s+</, '><'],
           [/; \s+/, '; '],
